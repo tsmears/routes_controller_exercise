@@ -1,20 +1,10 @@
-<% first_product = Product.first %>
-<% cheap_product = Product.where('price < 25').first %>
-<p>
-	Product Name: "<%= first_product.name %>" costs "<%= first_product.price %>"
-</p>
+<% lots_of_products = Product.includes(:user).all %>
 
-<p>
-	The seller of this product is named '<%= first_product.user.name %>'
-</p>
-
-<p>
-	These products are cheap: <%= cheap_product.name %>. <br>
-	There are <%= Product.count %> Products
-</p>
-
-<h2> Hello World</h2>
-<h2> I AMA View </h2>
-<p>
-  Find me in <%= Rails.root.join("app", "views", "products", __FILE__ ) %>
-</p>
+<ul>
+  <% lots_of_products.each do |product| %>
+    <li>
+      Product Name: "<%= product.name %>"" costs $<%= product.price %>
+      Sold By: <%= product.user.name %>
+    </li>
+  <% end %>
+</ul>
